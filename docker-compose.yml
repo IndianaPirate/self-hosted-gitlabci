@@ -1,0 +1,20 @@
+---
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:17.1.4-ce.0
+    container_name: lb
+    hostname: 'lb.example.com'
+    ports:
+      - '80:80'
+      - '443:443'
+      - '2424:22'
+    volumes:
+      - './config:/etc/gitlab'
+      - './logs:/var/log/gitlab'
+      - './data:/var/opt/gitlab'
+    shm_size: '256m'
+    networks:
+      - lb
+    restart: unless-stopped
+networks:
+  lb:
